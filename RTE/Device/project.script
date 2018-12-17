@@ -1,0 +1,4 @@
+load STM32F429ZITx 
+project name STCubeGenerated 
+project toolchain "MDK-ARM V5" 
+project path "C:\AGH\PROGRAMOWANIE\keli\stm32 p1\RTE\Device\STM32F429ZITx\" 
