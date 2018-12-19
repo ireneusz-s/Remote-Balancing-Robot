@@ -21,17 +21,24 @@ Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.0.1.0
 Dialog DLL:      TCM.DLL V1.32.0.0
  
 <h2>Project:</h2>
-C:\AGH\PROGRAMOWANIE\keli\STM32 BALANSING ROBOT\stm32 p1\RTE\Device\STM32F429ZITx\STCubeGenerated\MDK-ARM\STCubeGenerated.uvprojx
+C:\AGH\PROGRAMOWANIE\keli\STM32 BALANSING ROBOT\Remote-Balancing-Robot\RTE\Device\STM32F429ZITx\STCubeGenerated\MDK-ARM\STCubeGenerated.uvprojx
 Project File Date:  12/16/2018
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 5 (build 528)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'STCubeGenerated'
 compiling IS_PID.c...
-..\Src\IS_PID.c(92): error:  #29: expected an expression
-  		DataStruct->PID_output =(DataStruct->PID_KP/100)*DataStruct->PID_error + DataStruct->PID_KI*/
-..\Src\IS_PID.c: 0 warnings, 1 error
-"STCubeGenerated\STCubeGenerated.axf" - 1 Error(s), 0 Warning(s).
+compiling commands.c...
+compiling freertos.c...
+../Src/freertos.c(383): warning:  #223-D: function "IS_PID_calculate3" declared implicitly
+  	  IS_PID_calculate3(&PID2_Data, (SM_Move_Var*10)+PID_outputFiltered, dt);
+../Src/freertos.c: 1 warning, 0 errors
+linking...
+STCubeGenerated\STCubeGenerated.axf: Error: L6218E: Undefined symbol IS_PID_calculate3 (referred from freertos.o).
+Not enough information to list image symbols.
+Not enough information to list load addresses in the image map.
+Finished: 2 information, 0 warning and 1 error messages.
+"STCubeGenerated\STCubeGenerated.axf" - 1 Error(s), 1 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -55,7 +62,7 @@ Package Vendor: Keil
 
    * Component: ARM::CMSIS:CORE:5.0.2
 Target not created.
-Build Time Elapsed:  00:00:00
+Build Time Elapsed:  00:00:05
 </pre>
 </body>
 </html>

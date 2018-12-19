@@ -9,7 +9,7 @@ void IS_CompFilter_initialize(IS_CompFilter_struct* DataStruct)
 		DataStruct->roll=0;
 		DataStruct->A=0.001;
 		DataStruct->OffsetAngleDynamic = 0;
-		DataStruct->OffsetAngleStatic = -90.00f + 2.55f;
+		DataStruct->OffsetAngleStatic = -90.00f + 1.75f;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -90,6 +90,8 @@ IS_PID_struct PID1_Data;
 IS_PID_struct PID2_Data;
 
 
+int32_t PID_outputFiltered=0;
+
 /* USER CODE END Variables */
 
 /* Function prototypes -------------------------------------------------------*/
@@ -141,7 +143,7 @@ void MX_FREERTOS_Init(void) {
   taskCLIHandle = osThreadCreate(osThread(taskCLI), NULL);
 
   /* definition and creation of DataProcess */
-  osThreadDef(DataProcess, DataProcessFunction, osPriorityRealtime, 0, 256);
+  osThreadDef(DataProcess, DataProcessFunction, osPriorityRealtime, 0, 2048);
   DataProcessHandle = osThreadCreate(osThread(DataProcess), NULL);
 
   /* definition and creation of DataSendLV */
@@ -332,7 +334,7 @@ void DataProcessFunction(void const * argument)
 
 	
 		float dt=(float)SampleRate/1000;
-		static int64_t PID_outputFiltered=0;
+
 
 //MPU6050 important Data	
 		static float ay1=0;
@@ -342,20 +344,20 @@ void DataProcessFunction(void const * argument)
 //PID1_CONFIGURATION
 			PID1_Data.PID_KP=800;
 			PID1_Data.PID_KI=0;
-			PID1_Data.PID_KD=5;
+			PID1_Data.PID_KD=6;
 			PID1_Data.PID_AntiWindup=100;
 			PID1_Data.PID_outLimit=2340;
 			
 //PID2_CONFIGURATION
-			PID2_Data.PID_KP=0.4;
-			PID2_Data.PID_KI=0.004;
+			PID2_Data.PID_KP=0.3;
+			PID2_Data.PID_KI=0.003;
 			PID2_Data.PID_KD=0;
-			PID2_Data.PID_AntiWindup=200;
+			PID2_Data.PID_AntiWindup=300;
 			PID2_Data.PID_outLimit=5;
 			
 
 	  /* Infinite loop */
-  for(;;)
+  for(;;) 
   {
 	  vTaskDelayUntil(&xLastWakeTime,SampleRate);
 
@@ -378,7 +380,7 @@ void DataProcessFunction(void const * argument)
 		
 		
 //PID2//////////////////////////////////////////////////////////////////////////////////////////////////////////////////				
-	  IS_PID_calculate2(&PID2_Data, (SM_Move_Var*10)+PID_outputFiltered, dt);
+	  IS_PID_calculate3(&PID2_Data, (SM_Move_Var*10)+PID_outputFiltered, dt);
 
 
 //PID OUTPUT TO MOTORS/////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -406,10 +408,11 @@ void DataSendLVFunction(void const * argument)
   /* Infinite loop */
   for(;;)
   {
-		sprintf(comp_sprintf_buffer,"ch1:%.0f %.0f %.0f\n",CompFilter_Data.roll , CompFilter_Data.rollAcc , (-1*MPU6050_Data.Gyroscope_X*250.0f/32768.0f-3.80f));
+		sprintf(comp_sprintf_buffer,"ch1:%.1f %.1f %.1f\n",CompFilter_Data.roll , CompFilter_Data.rollAcc , (-1*MPU6050_Data.Gyroscope_X*250.0f/32768.0f-3.80f));
 		USART_WriteString(comp_sprintf_buffer);
 	 	osDelay(10);
 		
+		//sprintf(pid_sprintf_buffer,"ch2:%.0f %d %.0f\n",20.5, PID_outputFiltered, PID1_Data.PID_output);
 		sprintf(pid_sprintf_buffer,"ch2:%.0f %.0f %.0f\n",PID2_Data.PID_integral, PID2_Data.PID_output*100, PID1_Data.PID_output);
 		USART_WriteString(pid_sprintf_buffer);
     osDelay(10);

@@ -70,7 +70,7 @@ const float filter_taps[148] = {
 float IS_FIR_calculate (float value)
 {
    static float buffer[FILTER_TAP_NUM];
-   static float output=0;
+   float output=0;
 	
    for(int i=FILTER_TAP_NUM-1;i>0;i--)
    {
@@ -84,3 +84,4 @@ float IS_FIR_calculate (float value)
    }
    return output;
 }
+

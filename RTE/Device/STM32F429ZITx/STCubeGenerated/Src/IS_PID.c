@@ -21,8 +21,7 @@ void IS_PID_initialize(IS_PID_struct* DataStruct)
 			DataStruct->PID_signCompare=false;
 
 }
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 float IS_PID_calculate(IS_PID_struct* DataStruct, float input, float dt)
 {
 	
@@ -89,8 +88,7 @@ float IS_PID_calculate2(IS_PID_struct* DataStruct, float input, float dt)
 
 		DataStruct->PID_derivative = (DataStruct->PID_error-DataStruct->PID_error_prior)/dt;
 			
-		DataStruct->PID_output =(DataStruct->PID_KP/100)*DataStruct->PID_error + DataStruct->PID_KI*/
-	DataStruct->PID_integral + DataStruct->PID_KD*DataStruct->PID_derivative ; 
+		DataStruct->PID_output =(DataStruct->PID_KP/100)*DataStruct->PID_error + DataStruct->PID_KI*DataStruct->PID_integral + DataStruct->PID_KD*DataStruct->PID_derivative ; 
 		DataStruct->PID_error_prior = DataStruct->PID_error;
 
 		//check saturation and limit regulator output
