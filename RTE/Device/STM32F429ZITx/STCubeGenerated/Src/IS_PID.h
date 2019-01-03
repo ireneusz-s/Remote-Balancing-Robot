@@ -31,7 +31,7 @@ typedef struct {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void IS_PID_initialize(IS_PID_struct* DataStruct);
 float IS_PID_calculate(IS_PID_struct* DataStruct, float input, float dt);
-float IS_PID_calculate2(IS_PID_struct* DataStruct, float input, float dt);
+
 
 
 
