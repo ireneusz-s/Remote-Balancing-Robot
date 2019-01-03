@@ -28,8 +28,8 @@ float IS_PID_calculate(IS_PID_struct* DataStruct, float input, float dt)
 			DataStruct->PID_error = (input); 
 	
 			DataStruct->PID_integral = DataStruct->PID_integral + (DataStruct->PID_itegralClamp*DataStruct->PID_error*dt);	
-			if(DataStruct->PID_integral> DataStruct->PID_AntiWindup) DataStruct->PID_integral= DataStruct->PID_AntiWindup;        //up itegration limits
-			else if(DataStruct->PID_integral< -DataStruct->PID_AntiWindup) DataStruct->PID_integral= -DataStruct->PID_AntiWindup;	//down itegration limits
+			if(DataStruct->PID_integral> DataStruct->PID_AntiWindup) DataStruct->PID_integral= DataStruct->PID_AntiWindup;
+			else if(DataStruct->PID_integral< -DataStruct->PID_AntiWindup) DataStruct->PID_integral= -DataStruct->PID_AntiWindup;
 		
 			DataStruct->PID_derivative = (DataStruct->PID_error-DataStruct->PID_error_prior)/dt;
 		
